@@ -1,0 +1,124 @@
+﻿<Window x:Class="Сalculator.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Сalculator"
+        xmlns:RuntimeBinder="clr-namespace:Microsoft.CSharp.RuntimeBinder;assembly=Microsoft.CSharp" 
+        xmlns:vm="clr-namespace:Сalculator.ViewModels"
+        mc:Ignorable="d"
+        Title="Калькулятор"  MinHeight="300" MinWidth="200" Height="350"  Width="250">
+    <Window.DataContext>
+        <vm:MainWindowViewModel/>
+    </Window.DataContext>
+
+    <Grid >
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF3E3A3A" Offset="1"/>
+                <GradientStop Color="White" Offset="0"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*" />
+            <RowDefinition Height="0.7*" />
+            <RowDefinition Height="5*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" >
+  
+            <ScrollViewer x:Name="TextResult" 
+                          Margin="10" 
+                          Background="#FF16CCC0"
+                          BorderBrush="Black"
+                          BorderThickness="2"
+                          Template="{StaticResource ScrollViewerControlTemplate1}"
+                          VerticalScrollBarVisibility="Auto"
+                          HorizontalScrollBarVisibility="Auto">
+                <ListBox ItemsSource="{Binding ObservableCollection}"  Background="Transparent" BorderBrush="Transparent" Foreground="Black">
+                    <ListBox.ItemTemplate >
+                        <DataTemplate >
+                            <TextBox                                          
+                                Text="{Binding MathExcpressionStr}" 
+                                Background="Transparent" 
+                                BorderBrush="Transparent"
+                                SelectionBrush="Blue" 
+                                HorizontalAlignment="Stretch"
+                                HorizontalContentAlignment="Stretch"
+                                />
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </ScrollViewer>
+
+        </Grid>
+        <Grid Grid.Row="1">
+            <TextBox x:Name="TextInn"  
+                          VerticalContentAlignment="Center"
+                          Text="{Binding Path=TextInn}"
+                          Margin="10,0,10,0"
+                          Padding="5,0,0,2"
+                          Background="#FF16CCC0"
+                          BorderBrush="Black"
+                          BorderThickness="2" />
+        </Grid>
+        <Grid Grid.Row="2" >
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="4*" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2.7*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Row="0" Grid.Column="0" Margin="10,5,2.5,2.5" >
+                <UniformGrid Columns="3" Rows="2">
+                    <Button Content="^" Command="{Binding Command_Add_Pow}"/>
+                    <Button Content="x^2" Command="{Binding Command_Add_Pow_2}"/>
+                    <Button Content="√x" Command="{Binding Command_Square_Root}"/>
+                    <Button Content="(" Command="{Binding Command_Add_Bracket_Open}"/>
+                    <Button Content=")" Command="{Binding Command_Add_Bracket_Close}"/>
+                    <Button Content="10^x" Command="{Binding Command_Add_Base_10_Pow}"/>
+                </UniformGrid>
+            </Grid>
+
+            <Grid Grid.Row="1" Grid.Column="0" Margin="10,2.5,2.5,5">
+                <UniformGrid Columns="3" Rows="4" FirstColumn="4">
+                    <Button Content="7" Style="{StaticResource NumButton}" Command="{Binding Command_Add_7}"/>
+                    <Button Content="8" Style="{StaticResource NumButton}" Command="{Binding Command_Add_8}"/>
+                    <Button Content="9" Style="{StaticResource NumButton}" Command="{Binding Command_Add_9}"/>
+                    <Button Content="4" Style="{StaticResource NumButton}" Command="{Binding Command_Add_4}"/> 
+                    <Button Content="5" Style="{StaticResource NumButton}" Command="{Binding Command_Add_5}"/> 
+                    <Button Content="6" Style="{StaticResource NumButton}" Command="{Binding Command_Add_6}"/> 
+                    <Button Content="1" Style="{StaticResource NumButton}" Command="{Binding Command_Add_1}"/> 
+                    <Button Content="2" Style="{StaticResource NumButton}" Command="{Binding Command_Add_2}"/>
+                    <Button Content="3" Style="{StaticResource NumButton}" Command="{Binding Command_Add_3}"/>
+                    <Button Content="0" Style="{StaticResource NumButton}" Command="{Binding Command_Add_0}"/>
+                    <Button Content="," Command="{Binding Command_Add_Comma}"/>
+                    <Button Content="=" Command="{Binding Command_Equals}"/>
+                </UniformGrid>
+            </Grid>
+
+            <Grid Grid.Row="0" Grid.Column="1" Margin="2.5,5,10,2.5">
+                <UniformGrid  Rows="2">
+                    <Button Content="del" Command="{Binding Command_Delete}"/>
+                    <Button Content="C" Command="{Binding Command_Clear}"/> 
+                </UniformGrid>
+            </Grid>
+
+            <Grid Grid.Row="1" Grid.Column="1" Margin="2.5,2.5,10,5">
+                <UniformGrid  Rows="4">
+                    <Button Content="+" Command="{Binding Command_Add_Plus}"/>
+                    <Button Content="-" Command="{Binding Command_Add_Minus}"/>
+                    <Button Content="*" Command="{Binding Command_Add_Mult}"/>
+                    <Button Content="/" Command="{Binding Command_Add_Div}"/>
+                </UniformGrid>
+            </Grid>
+
+        </Grid>
+    </Grid>
+</Window>
